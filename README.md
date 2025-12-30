@@ -13,7 +13,7 @@ export default {
   plugins: [
     secureHeaders({
       reportOnly: false, // default: false - Report CSP violations instead of blocking them.
-      processI18n: false, // default: false - Process i18n.
+      processI18n: false, // default: false - Automatically configure vue-i18n to use runtime-only build. Sets alias to `vue-i18n/dist/vue-i18n.esm-browser.js` (dev) or `vue-i18n/dist/vue-i18n.esm-browser.prod.js` (prod).
       defaultSrc: "'self'", // default: "'self'" - Value for default-src directive in CSP.
       noncePlaceholder: 'NONCE_PLACEHOLDER', // default: 'NONCE_PLACEHOLDER' - Placeholder replaced by server.
       xssProtection: '1; mode=block', // default: '1; mode=block' - Value for X-XSS-Protection header.
