@@ -2,7 +2,7 @@
 
 A Vite plugin to add Content Security Policy (CSP) headers to your application in serve mode.
 
-In order to set CSP headers in production builds, you must configure your web server accordingly, as this plugin only affects the development server.
+In order to set CSP headers in production builds, you must configure your web server accordingly. This plugin transforms build output in order to facilitate that.
 
 ## Usage
 
@@ -38,4 +38,28 @@ export default {
     }),
   ],
 };
+```
+
+In server configuration, set the CSP header similarly to vite-plugin-csp-dev. `NONCE_PLACEHOLDER` should be replaced with a generated nonce value for each request. For example, in nginx:
+
+```
+map $request_id $nonce {
+    ~. $request_id;
+}
+
+server {
+    sub_filter_once off;
+    sub_filter_types *;
+    sub_filter NONCE_PLACEHOLDER $nonce;
+
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'nonce-$nonce'; style-src 'self' 'nonce-$nonce'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; connect-src: 'self'; frame-ancestors 'none'; worker-src 'self'; upgrade-insecure-requests;";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Frame-Options "DENY";
+    add_header X-Content-Type-Options "nosniff";
+    add_header Referrer-Policy "strict-origin-when-cross-origin";
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=()";
+    add_header Cache-Control "no-store, max-age=0";
+
+    # Other server configurations...
+}
 ```

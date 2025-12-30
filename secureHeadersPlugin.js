@@ -66,7 +66,6 @@ export function secureHeadersPlugin(options = {}) {
   return {
     name: 'vite-plugin-csp-dev',
     enforce: 'post',
-    apply: 'serve',
     config(config, configEnv) {
       // eslint-disable-next-line no-param-reassign
       config.resolve = config.resolve || {};
