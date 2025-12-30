@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-csp-dev",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "description": "A Vite plugin to add Content Security Policy (CSP) headers to your application in serve mode.",
   "main": "./dist/index.js",
