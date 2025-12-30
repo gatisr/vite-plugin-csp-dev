@@ -8,6 +8,7 @@ on:
 jobs:
   publish-gpr:
     runs-on: ubuntu-latest
+    environment: Production
     permissions:
       contents: read
       packages: write
