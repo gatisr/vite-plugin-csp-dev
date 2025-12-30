@@ -52,7 +52,19 @@ server {
     sub_filter_types *;
     sub_filter NONCE_PLACEHOLDER $nonce;
 
-    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'nonce-$nonce'; style-src 'self' 'nonce-$nonce'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; connect-src: 'self'; frame-ancestors 'none'; worker-src 'self'; upgrade-insecure-requests;";
+    add_header Content-Security-Policy "default-src 'self';
+        script-src 'self' 'nonce-$nonce';
+        style-src 'self' 'nonce-$nonce';
+        img-src 'self' data:;
+        font-src 'self';
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+        frame-ancestors 'none';
+        worker-src 'self';
+        connect-src 'self';
+        upgrade-insecure-requests;
+    " always;
     add_header X-XSS-Protection "1; mode=block";
     add_header X-Frame-Options "DENY";
     add_header X-Content-Type-Options "nosniff";
