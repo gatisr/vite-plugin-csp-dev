@@ -1,8 +1,6 @@
 # vite-plugin-csp-dev
 
-A Vite plugin to add Content Security Policy (CSP) headers to your application in serve mode.
-
-In order to set CSP headers in production builds, you must configure your web server accordingly. This plugin transforms build output in order to facilitate that.
+Vite plugin for Content Security Policy with nonce support. Adds CSP headers in development and injects nonce placeholders in production builds for server-side replacement.
 
 ## Usage
 
@@ -15,9 +13,9 @@ export default {
   plugins: [
     secureHeaders({
       reportOnly: false, // default: false - Report CSP violations instead of blocking them.
-      processI18n: true, // default: true - Process i18n.
+      processI18n: false, // default: false - Process i18n.
       defaultSrc: "'self'", // default: "'self'" - Value for default-src directive in CSP.
-      noncePlaceholder: 'NONCE_PLACEHOLDER', // default: 'NONCE_PLACEHOLDER' - Placeholder for nonce in HTML.
+      noncePlaceholder: 'NONCE_PLACEHOLDER', // default: 'NONCE_PLACEHOLDER' - Placeholder replaced by server.
       xssProtection: '1; mode=block', // default: '1; mode=block' - Value for X-XSS-Protection header.
       frameOptions: 'DENY', // default: 'DENY' - Value for X-Frame-Options header.
       contentTypeOptions: 'nosniff', // default: 'nosniff' - Value for X-Content-Type-Options header.
@@ -40,7 +38,15 @@ export default {
 };
 ```
 
-In server configuration, set the CSP header similarly to vite-plugin-csp-dev. `NONCE_PLACEHOLDER` should be replaced with a generated nonce value for each request. For example, in nginx:
+## How It Works
+
+**Development:** Plugin generates a nonce and sets CSP headers via middleware.
+
+**Production:** Plugin injects `NONCE_PLACEHOLDER` in HTML. Your web server replaces it with a real nonce per request.
+
+## Server Configuration
+
+**Nginx example:**
 
 ```nginx
 map $request_id $nonce {

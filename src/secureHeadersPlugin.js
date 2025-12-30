@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 /**
  * @typedef {Object} Options
  * @property {boolean} [reportOnly=false] - Whether to use Content-Security-Policy-Report-Only header instead of Content-Security-Policy header. For development purposes.
- * @property {boolean} [processI18n=true] - Whether to process i18n
+ * @property {boolean} [processI18n=false] - Whether to process i18n
  * @property {string} [defaultSrc="'self'"] - Value for default-src directive in CSP
  * @property {string} [noncePlaceholder='NONCE_PLACEHOLDER'] - The placeholder for nonce in the HTML
  * @property {string} [xssProtection='1; mode=block'] - Value for X-XSS-Protection header
@@ -39,7 +39,7 @@ const createNonce = () => createHash('sha256').update(Date.now().toString()).dig
 export function secureHeadersPlugin(options = {}) {
   const {
     reportOnly = false,
-    processI18n = true,
+    processI18n = false,
     defaultSrc = "'self'",
     noncePlaceholder = 'NONCE_PLACEHOLDER',
     xssProtection = '1; mode=block',
