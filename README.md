@@ -42,7 +42,7 @@ export default {
 
 In server configuration, set the CSP header similarly to vite-plugin-csp-dev. `NONCE_PLACEHOLDER` should be replaced with a generated nonce value for each request. For example, in nginx:
 
-```
+```nginx
 map $request_id $nonce {
     ~. $request_id;
 }
