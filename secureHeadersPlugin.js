@@ -178,8 +178,8 @@ export function secureHeadersPlugin(options = {}) {
       const linkRegex = /<link\s+([^>]*)>/g;
 
       return html
-        .replaceAll('<script', `<script nonce="${nonce}"`)
-        .replaceAll('<style', `<style nonce="${nonce}"`)
+        .replace(/<script/g, `<script nonce="${nonce}"`)
+        .replace(/<style/g, `<style nonce="${nonce}"`)
         .replace(linkRegex, (match, attributes) => {
           let newAttributes = attributes.replace(/\s*\/\s*$/, '');
           if (!newAttributes.includes('nonce=')) {
@@ -187,7 +187,7 @@ export function secureHeadersPlugin(options = {}) {
           }
           return `<link ${newAttributes.trim()}>`;
         })
-        .replaceAll('style="', `style="nonce="${nonce}" `)
+        .replace(/style="/g, `style="nonce="${nonce}" `)
         .replace('</head>', `${injectNonceScript}</head>`);
     },
     /**
@@ -209,8 +209,8 @@ export function secureHeadersPlugin(options = {}) {
               ...chunk,
               source: chunk.source
                 // @ts-ignore
-                .replaceAll('<script', `<script nonce="${nonce}"`)
-                .replaceAll('<style', `<style nonce="${nonce}"`)
+                .replace(/<script/g, `<script nonce="${nonce}"`)
+                .replace(/<style/g, `<style nonce="${nonce}"`)
                 // @ts-ignore
                 .replace(linkRegex, (match, attributes) => {
                   let newAttributes = attributes.replace(/\s*\/\s*$/, '');
@@ -219,7 +219,7 @@ export function secureHeadersPlugin(options = {}) {
                   }
                   return `<link ${newAttributes.trim()}>`;
                 })
-                .replaceAll('style="', `style="nonce="${nonce}" `),
+                .replace(/style="/g, `style="nonce="${nonce}" `),
             },
           };
         }
