@@ -22,6 +22,11 @@
   "bugs": {
     "url": "https://github.com/gatisr/vite-plugin-csp-dev/issues"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public",
+    "provenance": true
+  },
   "homepage": "https://github.com/gatisr/vite-plugin-csp-dev#readme",
   "scripts": {
     "build": "vite build",

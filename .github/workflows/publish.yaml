@@ -26,4 +26,4 @@ jobs:
         run: |
           VERSION=${GITHUB_REF#refs/tags/v}
           pnpm version $VERSION --no-git-tag-version
-      - run: pnpm publish --no-git-checks --provenance --access public
+      - run: npm publish --no-git-checks
